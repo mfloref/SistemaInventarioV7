@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SistemaInventario.AccesoDatos.Data;
-
+using SistemaInventario.AccesoDatos.Repositorio;
+using SistemaInventario.AccesoDatos.Repositorio.IRepositorio;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 //En esta seccion se agrego ".AddRazorRunetimeCompilation()" ya que este fue el NuGet que instalamos en la solucion de runtimecompilation
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+//AddScoped permite que la estancia del servicio se cree una vez y permite que se pueda seguir usando
+builder.Services.AddScoped<IUnidadTrabajo, UnidadTrabajo>();
 
 var app = builder.Build();
 
